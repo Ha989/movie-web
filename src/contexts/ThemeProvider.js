@@ -43,6 +43,7 @@ function ThemeProvider({ children }) {
     palette: {
         mode: "dark",
       },
+      themeOptions
   });
 
   return (
