@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
 import Chip from "@mui/material/Chip";
@@ -7,17 +7,15 @@ import Avatar from "@mui/material/Avatar";
 import RecommendIcon from "@mui/icons-material/Recommend";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import Divider from "@mui/material/Divider";
-import { useParams } from "react-router-dom";
 import StarIcon from "@mui/icons-material/Star";
 import IconButton from "@mui/material/IconButton";
 import Skeleton from "@mui/material/Skeleton";
 import { Container } from "@mui/system";
-import {  toast } from 'react-toastify';
+
 
 
 function MDetailCard({ movieDetail, loading}) {
-  let   { movieId } = useParams();
-  
+
   
 
   const detailSkeleton = (

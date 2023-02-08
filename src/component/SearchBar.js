@@ -1,13 +1,12 @@
 
 import SearchIcon from "@mui/icons-material/Search";
-import React, { useState } from "react";
+import React from "react";
 import { styled, alpha } from "@mui/material/styles";
 import InputBase from "@mui/material/InputBase";
-import {Paper, Box} from '@mui/material';
+import {Paper} from '@mui/material';
 import SearchPage from "../pages/SearchPage";
 import Modal from '@mui/material/Modal';
-import { useNavigate } from "react-router-dom";
-import { Stack } from "@mui/system";
+
 
 
 

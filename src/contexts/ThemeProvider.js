@@ -29,15 +29,15 @@ const SUCCESS = {
   contrastText: "#FFF",
 };
 
-function ThemeProvider({ children }) {
-  const themeOptions = {
-    palette: {
-      primary: PRIMARY,
-      secondary: SECONDARY,
-      success: SUCCESS,
-    },
-    shape: { borderRadius: 8 },
-  };
+// function ThemeProvider({ children }) {
+//   const themeOptions= {
+//     palette: {
+//       primary: PRIMARY,
+//       secondary: SECONDARY,
+//       success: SUCCESS,
+//     },
+//     shape: { borderRadius: 8 },
+//   };
 
   const theme = createTheme({
     palette: {

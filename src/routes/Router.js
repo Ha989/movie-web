@@ -1,7 +1,7 @@
 
 import React from 'react';
-import { useLocation, Routes, Route, Navigate } from 'react-router-dom';
-import { useAuth } from '../contexts/AuthContext';
+import { useLocation, Routes, Route} from 'react-router-dom';
+
 import MainLayout from '../layouts/MainLayout';
 import Discovery from '../pages/Discovery';
 import HomePage from '../pages/HomePage';
@@ -18,15 +18,6 @@ function Router() {
      let location = useLocation();
      let state = location.state
 
-
-     function RequireAuth({ children }) {
-      let auth = useAuth();
-      console.log("user status: ", auth.user);
-      if(!auth.user) {
-          return <Navigate to="/login" state={{ from: location }} replace/>
-      }
-      return children;
-  }
   return (
     <>
     <Routes location={state?.backgroundLocation || location }>
