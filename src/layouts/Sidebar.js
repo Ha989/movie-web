@@ -23,7 +23,7 @@ import { Typography } from '@mui/material';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 
 
-const drawerWidth = 240;
+const drawerWidth = 200;
 
 function SideBar(props) {
   const auth = useAuth();
