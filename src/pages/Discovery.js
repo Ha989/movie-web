@@ -25,7 +25,7 @@ function Discovery() {
       if (query) {
         setLoading(true);
         const response = await apiService.get(
-          `search/movie?api_key=${API_KEY}&language=en-US&query=${query}`
+          `search/movie?api_key=${API_KEY}&language=en-US&query=${query}&page=${page}`
         )
         setMovies(response.data.results);
         setPagesTotal(response.data.total_pages)
