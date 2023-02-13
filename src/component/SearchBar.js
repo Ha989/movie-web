@@ -62,12 +62,13 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 function SearchBar() {
 
- const [query, setQuery] = useContext(SearchContext);
+ const [setQuery] = useContext(SearchContext);
  const navigate = useNavigate();
 
 const handleOnChange = (event) => {
   setQuery(event.target.value);
-  navigate(`/discovery/1`)
+  navigate(`/discovery/1`);
+
   }
 
   return (
