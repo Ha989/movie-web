@@ -1,11 +1,12 @@
 import { Divider, Grid, Typography, Skeleton, 
     Stack, Container, Pagination, Box, PaginationItem } from '@mui/material';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import apiService from '../api/apiService';
 import { API_KEY } from '../api/config';
 import MCard from '../component/MCard';
 import SideBar from '../layouts/Sidebar';
 import {Link} from 'react-router-dom';
+import { SearchContext } from '../contexts/SearchParam';
 
 
 
@@ -14,25 +15,37 @@ function Discovery() {
   const [movies, setMovies] = useState([]);
   const [page, setPage] = useState(1);
   const [pagesTotal, setPagesTotal] = React.useState(0);
+  const [query, setQuery] = useContext(SearchContext);
   
 
   
   useEffect(() => {
     const fetchData = async () => {
-      try {
+      
+      if (query) {
         setLoading(true);
         const response = await apiService.get(
-            `discover/movie?api_key=${API_KEY}&page=${page}&language=en-US`
-        );
+          `search/movie?api_key=${API_KEY}&language=en-US&query=${query}`
+        )
         setMovies(response.data.results);
         setPagesTotal(response.data.total_pages)
         setLoading(false);
-      } catch (error) {
-        console.log(error.message)
+      } else {
+        try {  
+          setLoading(true);
+          const response = await apiService.get(
+              `discover/movie?api_key=${API_KEY}&page=${page}&language=en-US`
+          );
+          setMovies(response.data.results);
+          setPagesTotal(response.data.total_pages);
+          setLoading(false);
+        } catch (error) {
+          console.log(error.message)
+        }
       }
     };
     fetchData();
-  },[page]);
+  },[page, query]);
   
 
   const placeholder = [0, 1, 2, 3, 4];
@@ -49,10 +62,20 @@ function Discovery() {
     <>
       <Container>
         <SideBar/>
-      <Typography variant='h5' mb={2} mt={1} ml={{ xs: 1, md: 10}}>
-        DISCOVERY
-        <Divider/>
-      </Typography>
+      
+        {query? (
+          <Typography variant='h5' mb={2} mt={1} ml={{ xs: 1, md: 10}}>
+             Search results
+            <Divider/>
+          </Typography>
+        ) : ( 
+          <Typography variant='h5' mb={2} mt={1} ml={{ xs: 1, md: 10}}>
+             DISCOVERY
+          <Divider/>
+          </Typography>
+        )
+        }
+
       
 
       <Grid container direction="row" spacing={5} mt={1} ml={{ xs: -5, md: 5}}>

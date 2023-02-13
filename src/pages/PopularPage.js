@@ -19,19 +19,21 @@ function PopularPage() {
   
   useEffect(() => {
     const fetchData = async () => {
-      try {
-        setLoading(true);
-        const response = await apiService.get(
-            `movie/popular?api_key=${API_KEY}&page=${page}`
-        );
-        setMovies(response.data.results);
-        setPagesTotal(response.data.total_pages)
-        setLoading(false);
-      } catch (error) {
-        console.log(error.message)
-      }
-    };
-    fetchData();
+        try {
+          setLoading(true);
+          const response = await apiService.get(
+              `movie/popular?api_key=${API_KEY}&page=${page}`
+          );
+          setMovies(response.data.results);
+          setPagesTotal(response.data.total_pages)
+          setLoading(false);
+        } catch (error) {
+          console.log(error.message)
+        }
+   
+  };
+  fetchData();
+    
   },[page]);
   
 
@@ -49,10 +51,11 @@ function PopularPage() {
     <>
       <Container>
         <SideBar/>
-      <Typography variant='h5' mb={2} mt={1} ml={{ xs: 1, md: 10}}>
-        POPULAR MOVIES
-        <Divider/>
-      </Typography>
+          <Typography variant='h5' mb={2} mt={1} ml={{ xs: 1, md: 10}}>
+           POPULAR MOVIES
+          <Divider/>
+          </Typography>
+      
       
 
       <Grid container direction="row" spacing={5} mt={1} ml={{ xs: -4, md: 5}}>

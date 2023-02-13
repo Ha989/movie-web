@@ -1,11 +1,10 @@
-
+import React, { useContext } from 'react';
 import SearchIcon from "@mui/icons-material/Search";
-import React from "react";
 import { styled, alpha } from "@mui/material/styles";
 import InputBase from "@mui/material/InputBase";
-import {Paper} from '@mui/material';
-import SearchPage from "../pages/SearchPage";
-import Modal from '@mui/material/Modal';
+import { useNavigate } from 'react-router-dom';
+import { SearchContext } from '../contexts/SearchParam';
+
 
 
 
@@ -50,50 +49,39 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-const style = {
-  position: "relative",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  with: 300,
-  height: 400,
-};
+// const style = {
+//   position: "relative",
+//   top: "50%",
+//   left: "50%",
+//   transform: "translate(-50%, -50%)",
+//   with: 300,
+//   height: 400,
+// };
 
 
 
 function SearchBar() {
 
-  const [open, setOpen] = React.useState(false);
+ const [query, setQuery] = useContext(SearchContext);
+ const navigate = useNavigate();
 
-  const handleOpen = () => {
-    setOpen(true);
+const handleOnChange = (event) => {
+  setQuery(event.target.value);
+  navigate(`/discovery/1`)
   }
-  const handleClose = () => {
-    setOpen(false);
-  }
-
 
   return (
     <>
-    <Search onClick={handleOpen}>
+    <Search >
       <SearchIconWrapper>
         <SearchIcon />
       </SearchIconWrapper>
       <StyledInputBase
         placeholder="Search…"
         inputProps={{ "aria-label": "search" }}
+        onChange={handleOnChange}
       />
     </Search>
-           <Modal
-            onClose={handleClose}
-            open={open}
-            sx={{ minWidth: 250, height: 500, mt: 20}}
-            
-          >
-            <Paper elevation={24} sx={style} mt={0.5}>
-              <SearchPage handleClose={handleClose} />
-            </Paper>
-          </Modal>
       </>
   );
 }

@@ -26,7 +26,7 @@ function Router() {
         <Route path='discovery/:pageId' element={<Discovery/>}/>
         <Route path='trending/:pageId' element={<TrendingMovieList/>}/>
         <Route path='popular/:pageId' element={<PopularPage/>}/>
-        <Route path='top_rated/:pageId' element={<TopRated/>}/>
+        <Route path='top_rated/:pageId' element={<TopRated />} />
         <Route path='upcoming/:pageId' element={<UpComing/>}/>
         <Route path='movie/:movieId' element={<DetailPage />}/>
         <Route path='/favorite' element={<FavoritePage />}/>
