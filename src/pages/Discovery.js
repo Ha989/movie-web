@@ -15,7 +15,7 @@ function Discovery() {
   const [movies, setMovies] = useState([]);
   const [page, setPage] = useState(1);
   const [pagesTotal, setPagesTotal] = React.useState(0);
-  const [query, setQuery] = useContext(SearchContext);
+  const [query] = useContext(SearchContext);
   
 
   
