@@ -24,6 +24,7 @@ function TopRated() {
         const response = await apiService.get(
             `movie/top_rated?api_key=${API_KEY}&page=${page}`
         );
+      
         setMovies(response.data.results);
         setPagesTotal(response.data.total_pages)
         setLoading(false);
@@ -46,7 +47,7 @@ function TopRated() {
 
 
   return (
-    <>
+     <>
       <Container>
         <SideBar/>
       <Typography variant='h5' mb={2} mt={1} ml={{ xs: 1, md: 10}}>
@@ -57,18 +58,19 @@ function TopRated() {
 
       <Grid container direction="row" spacing={5} mt={1} ml={{ xs: -4, md: 5}}>
          {loading ? 
-            placeholder.map((item, i) => (
+            placeholder.map((item) => (
                 <Grid key={item.id} item xs={12} sm={6} md={4} >
                     {detailSkeleton}
                 </Grid>
             ))
-            : movies.map((item, i) => (
+            : movies.map((item) => (
                 <Grid key={item.id} item xs={12} sm={6} md={4}>
                     <TrendingCard item={item}/>
                 </Grid>
             ))    
          }
       </Grid>
+      
       <Box spacing={2} sx={{ mt: 2, display: 'flex', justifyContent: 'center'}}>
         <Pagination 
             size='large'
@@ -87,8 +89,8 @@ function TopRated() {
             )}
           />
         </Box>
-      </Container>
-    </>
+        </Container>
+      </>
   )
 }
 

@@ -18,67 +18,46 @@ import "./styles.css";
 function HomePage() {
 
   const [loading, setLoading] = useState();
-  const [popularList, setPopularList] = useState([]);
-  const [topRatedList, setTopRatedList] = useState([]);
-  const [upComingList, setUpComingList] = useState([]);
+  const [movieList, setMovieList] = useState({
+    topRated: [],
+    popular: [],
+    upcoming: [],
+  })
 
   useEffect(() => {
     const fetchData = async () => {
-      try {
-        setLoading(true);
-        const response = await apiService.get(
-          `movie/top_rated?api_key=${API_KEY}&language=en-US&page=1`
-        );
-        setTopRatedList(response.data.results);
-        setLoading(false);
-      } catch (error) {
-        console.log(error.message);
-      }
-    };
-    fetchData();
-  }, []);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setLoading(true);
-        const response = await apiService.get(
-          `movie/popular?api_key=${API_KEY}&language=en-US&page=2`
-        );
-        setPopularList(response.data.results);
-        setLoading(false);
-      } catch (error) {
-        console.log(error.message);
-      }
-    };
-    fetchData();
-  }, []);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setLoading(true);
-        const response = await apiService.get(
-          `movie/upcoming?api_key=${API_KEY}&language=en-US&page=2`
-        );
-        setUpComingList(response.data.results);
-        setLoading(false);
-      } catch (error) {
-        console.log(error.message);
-      }
-    };
-    fetchData();
-  }, []);
-
-
+          try {
+          setLoading(true);
+          const resTopRated = await apiService.get(
+            `movie/top_rated?api_key=${API_KEY}&page=1`
+          )
+          const resPopular = await apiService.get(
+            `movie/popular?api_key=${API_KEY}&page=2`
+          );
+          const resUpcoming = await apiService.get(
+            `movie/upcoming?api_key=${API_KEY}&page=2`
+          );
+          const topRated = resTopRated.data.results;
+          const popular = resPopular.data.results;
+          const upcoming = resUpcoming.data.results;
+    
+          setMovieList({ topRated, popular, upcoming });
+          setLoading(false);
+        } catch (error)  {
+          console.log(error.message);
+        }
+      };
+      fetchData();
+  }, [])
+  
   const placeholder = [0, 1, 2, 3];
-   const detailSkeleton = (
-       <Stack spacing={1}>
-           <Skeleton variant='text'/>
-           <Skeleton variant='rectangular' width="100%" height={300}/>
-       </Stack>
-   );
-
+  const detailSkeleton = (
+    <Stack spacing={1}>
+      <Skeleton variant="text" />
+      <Skeleton variant="circular" width={60} height={60} />
+      <Skeleton variant="rectangular" width="100%" height={300} />
+    </Stack>
+  );
 
   return (
     <>  
@@ -98,7 +77,7 @@ function HomePage() {
             See More
           </Button>
         </Box>
-      <Swiper 
+        <Swiper 
         navigation={true} 
         modules={[Navigation]} 
         className="mySwiper" 
@@ -117,17 +96,17 @@ function HomePage() {
               spaceBetween: 5,
             },
           }}>
-             {loading ? placeholder.map((item) => (
+        {loading ? placeholder.map((item) => (
                 <Grid item xs={6} md={4} lg={3}>
                     {detailSkeleton}
                 </Grid>
-             )) : topRatedList.map((item) => (      
-                    <SwiperSlide > 
+             )) : movieList.topRated.map((item) => (      
+                    <SwiperSlide> 
                           <MCard key={item.id} item={item}/>
                     </SwiperSlide>
              ))
             }
-        </Swiper>  
+       </Swiper>
       </Stack>
 
       <Stack mt={5} ml={{xs: 0, sm: 3, lg: 10}}>
@@ -162,7 +141,7 @@ function HomePage() {
                 <Grid item xs={6} md={4} lg={3}>
                     {detailSkeleton}
                 </Grid>
-             )) : popularList.map((item) => (      
+             )) : movieList.popular.map((item) => (      
                     <SwiperSlide > 
                           <MCard key={item.id} item={item}/>
                     </SwiperSlide>
@@ -203,7 +182,7 @@ function HomePage() {
                 <Grid item xs={6} md={4} lg={3}>
                     {detailSkeleton}
                 </Grid>
-             )) : upComingList.map((item) => (      
+             )) : movieList.upcoming.map((item) => (      
                     <SwiperSlide > 
                         <TrendingCard key={item.id} item={item}/>
                     </SwiperSlide>
